@@ -517,8 +517,11 @@ acquire and release to simplify the implementation of speculative lock
 elision~\cite{Rajwar:2001:SLE}.
 \end{commentary}
 
-The instructions in the ``A'' extension can also be used to provide
-sequentially consistent loads and stores.  A sequentially consistent load can
-be implemented as an LR with both {\em aq} and {\em rl} set. A sequentially
-consistent store can be implemented as an AMOSWAP that writes the old value to
-x0 and has both {\em aq} and {\em rl} set.
+The instructions in the ``A'' extension can be used to provide sequentially
+consistent loads and stores, but this constrains the implementation more
+than absolutely necessary.  A C++ sequentially consistent load can
+be implemented as an LR with {\em aq} set. However, the LR/SC eventual
+success guarantee may slow down concurrent loads from the same effective
+address. A sequentially consistent store can be implemented as an AMOSWAP
+that writes the old value to x0 and has {\em rl} set. However the superfluous
+load may impose ordering constraints that are unnecessary for this use case.
