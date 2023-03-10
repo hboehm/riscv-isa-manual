@@ -232,16 +232,17 @@ before the LR instruction that established the reservation.
 The LR/SC
 sequence can be given acquire semantics by setting the {\em aq} bit on
 the LR instruction.  The LR/SC sequence can be given release semantics
-by setting the {\em rl} bit on the SC instruction.  Setting the {\em
-  aq} bit on the LR instruction, and setting the {\em
-  rl} bit on the SC instruction makes the LR/SC sequence sequentially
-consistent in the C++ sense, meaning that it cannot be reordered with
-earlier or later memory operations from the same hart. Specific instruction
-mappings for other C++ atomic operations may require both bits to be set
-on either the LR or SC instruction for proper interoperation with those
-operations.
+by setting the {\em rl} bit on the SC instruction.  Setting the
+{\em aq} bit on the LR instruction, and setting the
+{\em rl} bit on the SC instruction potentially makes the LR/SC
+sequence sequentially consistent in the C++ {\em memory_order_seq_cst}
+sense. Such a sequence does not act as a fence for ordering ordinary
+load and store instructions before and after the sequence. Specific
+instruction mappings for other C++ atomic operations,
+or stronger notions of "sequential consistency", may require both
+bits to be set on either or both of the LR or SC instruction.
 
-If neither bit is set on both LR and SC, the LR/SC sequence can be
+If neither bit is set on either LR or SC, the LR/SC sequence can be
 observed to occur before or after surrounding memory operations from
 the same RISC-V hart.  This can be appropriate when the LR/SC
 sequence is used to implement a parallel reduction operation.
