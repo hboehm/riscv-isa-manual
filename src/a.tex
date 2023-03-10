@@ -233,10 +233,13 @@ The LR/SC
 sequence can be given acquire semantics by setting the {\em aq} bit on
 the LR instruction.  The LR/SC sequence can be given release semantics
 by setting the {\em rl} bit on the SC instruction.  Setting the {\em
-  aq} bit on the LR instruction, and setting both the {\em aq} and the {\em
+  aq} bit on the LR instruction, and setting the {\em
   rl} bit on the SC instruction makes the LR/SC sequence sequentially
-consistent, meaning that it cannot be reordered with earlier or
-later memory operations from the same hart.
+consistent in the C++ sense, meaning that it cannot be reordered with
+earlier or later memory operations from the same hart. Specific instruction
+mappings for other C++ atomic operations may require both bits to be set
+on either the LR or SC instruction for proper interoperation with those
+operations.
 
 If neither bit is set on both LR and SC, the LR/SC sequence can be
 observed to occur before or after surrounding memory operations from
