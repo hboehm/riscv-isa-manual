@@ -529,5 +529,5 @@ success guarantee may slow down concurrent loads from the same effective
 address. A sequentially consistent store can be implemented as an AMOSWAP
 that writes the old value to x0 and has {\em rl} set. However the superfluous
 load may impose ordering constraints that are unnecessary for this use case.
-Specific comilation conventions may require both the {\em aq} and {\em rl}
+Specific compilation conventions may require both the {\em aq} and {\em rl}
 bits to be set in either or both the LR and AMOSWAP instructions.
