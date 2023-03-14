@@ -232,9 +232,10 @@ before the LR instruction that established the reservation.
 The LR/SC
 sequence can be given acquire semantics by setting the {\em aq} bit on
 the LR instruction.  The LR/SC sequence can be given release semantics
-by setting the {\em rl} bit on the SC instruction.  Setting the
+by setting the {\em rl} bit on the SC instruction.  Assuming
+suitable mappings for other atomic operations, setting the
 {\em aq} bit on the LR instruction, and setting the
-{\em rl} bit on the SC instruction potentially makes the LR/SC
+{\em rl} bit on the SC instruction makes the LR/SC
 sequence sequentially consistent in the C++ {\em memory_order_seq_cst}
 sense. Such a sequence does not act as a fence for ordering ordinary
 load and store instructions before and after the sequence. Specific
@@ -522,9 +523,10 @@ elision~\cite{Rajwar:2001:SLE}.
 \end{commentary}
 
 The instructions in the ``A'' extension can be used to provide sequentially
-consistent loads and stores, but this constrains the implementation more
-than absolutely necessary.  A C++ sequentially consistent load can
-be implemented as an LR with {\em aq} set. However, the LR/SC eventual
+consistent loads and stores, but this constrains hardware
+reordering of memory accesses more than necessary.
+A C++ sequentially consistent load can be implemented as
+an LR with {\em aq} set. However, the LR/SC eventual
 success guarantee may slow down concurrent loads from the same effective
 address. A sequentially consistent store can be implemented as an AMOSWAP
 that writes the old value to x0 and has {\em rl} set. However the superfluous
